@@ -18,12 +18,12 @@
 </style>
 
 <div class="contact">
-    <form action="#" method="post">
+    <form>
         <!-- This name func will be helpful in getting data at flask app -->
         <input type="text" placeholder="Name" name="nm">  
         <input type="email" placeholder="Email" name="em">
         <input type="password" placeholder="Password" name="pw"> 
-        <input class="btn" type="submit">
+        <input class="btn" onclick="send_data()">
             Submit
         </div>
     </form>
@@ -31,6 +31,25 @@
 
 <script>
 
+    function send_data(){
+        console.log('click');
+        // Value that I want to send
+        new_freq ={
+            'nm' : $('input[name="nm"]').val(),
+            'em' : $('input[name="em"]').val(),
+            'pw' : $('input[name="pw"]').val(),
+
+        } 
+
+        // Sending
+        $.ajax({ 
+            url: '/contact', 
+            type: 'POST', 
+            data: new_freq
+        }).done((data)=>{
+            console.log(data);
+        })
+    }    
 </script>
 
 {% endblock %}

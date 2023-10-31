@@ -21,9 +21,12 @@ def index():
 def contact():
 
     if(request.method=="POST"):
-        name_ = request.form["nm"]  #request.form will give us a dictionary with values of input that in the form who had done post rewuest
-        email_ = request.form["em"] 
-        password_ = request.form["pw"] 
+        print('request.get_data')
+        print(request.form['nm'])   
+        name_ = request.form['nm']  #request.args will give us a dictionary with values of input that in the args who had done post rewuest
+        email_ = request.form['em'] 
+        password_ = request.form['pw']
+
 
         # MAking objcet for contact
         entry = Sasta_contact(name=name_,email=email_,password=password_)
@@ -31,6 +34,7 @@ def contact():
         # Now pushing into databasae
         db.session.add(entry)
         db.session.commit()
+        return "hi"
 
     return render_template('sasta_contact.html')
 
