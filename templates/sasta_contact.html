@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block title %} Sasta Contact {% endblock %}
+
+{% block body %} 
+<style>
+    .contact{
+        min-height: 100vh;
+        min-width: 100vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    .btn{
+        cursor: pointer;
+    }
+</style>
+
+<div class="contact">
+    <form action="#" method="post">
+        <!-- This name func will be helpful in getting data at flask app -->
+        <input type="text" placeholder="Name" name="nm">  
+        <input type="email" placeholder="Email" name="em">
+        <input type="password" placeholder="Password" name="pw"> 
+        <input class="btn" type="submit">
+            Submit
+        </div>
+    </form>
+</div>
+
+<script>
+
+</script>
+
+{% endblock %}
+

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Health - {% block title %} {% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for( 'static' ,filename='style.css')}}">
+</head>
+<body>
+    
+    <header class=" centered header">
+        <a href="#"><img src="logo.png" alt="logo"></a>
+        <div class="centered nav">
+            <a class="centered" href ="#">Home</a>
+            <a class="centered" href ="#about">About Us</a>
+            <a class="centered" href ="contact">Contact Us</a>
+            <a class="centered" href ="#login">Login</a>
+        </div>
+        <div class="centered ham">
+            <div class="line"></div>
+        </div>
+    </header>
+
+
+<!-- Body content here -->  
+<!-- things that we want to add in body will come here -->
+{% block body %} {% endblock %}
+
+
+<script src="{{ url_for( 'static' ,filename='script.js')}}"></script>
+<script src="{{ url_for( 'static' ,filename='jquery.js')}}"></script>
+</body>
+</html>
