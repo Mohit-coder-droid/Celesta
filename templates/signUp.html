@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+
+{% block title %} Contact Us {% endblock %}
+
+{% block body %} 
+
+<style>
+    body{
+        text-align: center;
+        background: linear-gradient(skyblue,darkblue);
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+    input[type="text"]{
+        padding: 10px 100px;
+        border-radius: 10px;
+    }
+    input[type="password"]{
+        padding: 10px 100px;
+        border-radius: 10px;
+    }
+    input[type="email"]{
+        padding: 10px 100px;
+        border-radius: 10px;
+    }
+    ::placeholder{
+        text-align: center;
+        color:black;
+    }
+    #main{
+        border-top: 100px;
+        border-left: 400px;
+    }
+    a{
+        color: red;
+    }
+    button{
+        padding: 5px 50px;
+    }
+</style>
+
+<main>
+    <div id="contact">
+        <h1>Sign Up</h1>
+        <h3>Enter the required information <br></h3>
+            <input type="text" id="firstname" placeholder="Enter First name" name="firstname">
+        <br><br>
+            <input type="text" id="lastname" placeholder="Enter Last Name" name="lastname">
+        <br><br>
+            <input type="text" id="mobileno" placeholder="Enter Mobile number" name="mobnu">
+        <br><br>
+            <input type="email" id="email" placeholder="Enter Email" name="email">
+        <br><br>
+        <label for="password">
+            <input type="password" id="password" placeholder="Enter Password" name="password">
+        <br><br>
+        <label for="repassword">
+            <input type="password" id="repassword" placeholder="Reenter Password">
+        <br><br>
+        <div class="btn" onclick="contact_data()">Submit</div>
+    </div>
+</main>
+already having a account?<a href="">Log in</a>
+
+{% endblock %}
