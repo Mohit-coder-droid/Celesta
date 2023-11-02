@@ -1,13 +1,67 @@
 from flask import Flask,render_template,request,url_for,redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
-import json
+import mysql.connector
+from flask_login import LoginManager, UserMixin, login_user, login_required
 
-# Loading config json file
-f = open('config.json')
-params = json.load(f)["params"]
-f.close()
+# Connecting to the database
+db_config = {
+    "host":"localhost",
+    "database":"celesta",
+    "user":"root",
+    "password":""
+}
+
+# Making parameters configurable
+params={
+    "local_server":"True",
+    "local_uri":"mysql://root:@localhost/celesta",
+    "prod_uri":"mysql://root:@localhost/celesta"
+}
+
+def login_auth(mob_no,pwd):
+    '''For making login possible'''
+
+
+    conn = mysql.connector.connect(**db_config)
+    cursor = conn.cursor()
+
+    query = "SELECT * from contact WHERE firstName='second'"
+    cursor.execute(query)
+    data = cursor.fetchall()
+
+    # Now I need to check whether this user exists or not, and if it exists , then give it's data
+    try:
+        query = f"SELECT * from contact where mobile_nu='{mob_no}'"
+        cursor.execute(query)
+        data = cursor.fetchall()
+
+        if (data[0][5]==pwd):
+            login_data = {
+                'result':'True',
+                'data': data[0]
+            }
+
+        else:
+            login_data={
+                'result':'False'
+            }
+
+    # if the user doesn't exist
+    except:
+        login_data = {
+            'result':'False'
+        }
+    
+    cursor.close()
+    conn.close()
+
+    return login_data
+
 
 app = Flask(__name__)
+
+login_manager = LoginManager(app)
+login_manager.login_view = 'login'  # Set the login view route
 
 local_server = True
 
@@ -20,13 +74,7 @@ else:
 
 db = SQLAlchemy(app)
 
-# Contact us database table
-class Sasta_contact(db.Model):
-    sno = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50), unique=False, nullable=False)
-    email = db.Column(db.String(100), unique=True)
-    password = db.Column(db.String(200),nullable=False)
-
+# Contact us databasae table
 class Contact(db.Model):
     sno = db.Column(db.Integer,primary_key=True)
     firstName = db.Column(db.String(50),nullable=False)
@@ -59,5 +107,18 @@ def contact():
         return "hi"
 
     return render_template('signUp.html')
+
+@app.route("/login",methods=["POST","GET"])
+def login():
+
+    if (request.method=="POST"):
+        mob_no = request.form['mob_no']
+        pwd = request.form['pwd']
+
+        
+
+        return login_auth(mob_no,pwd)
+    
+    return render_template('login.html')
 
 app.run(debug=True)

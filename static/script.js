@@ -32,7 +32,27 @@ function contact_data(){
     }).done((data)=>{
         console.log(data);
     })
+}
 
-    $('input').val()='';
 
+// For getting data from login page
+function login(){
+    login_data = {
+        "mob_no":$('input[name="login_user"]').val(),
+        "pwd":$('input[name="login_pwd"]').val()
+    }
+
+    $.ajax({
+        url:"/login",
+        type:"POST",
+        data:login_data,
+    }).done((data)=>{
+        // Means that user exists
+        if (data["result"]=="True"){
+            window.location.replace("/")
+        }
+        else{
+            $('.login_incorrect').css('display','block');
+        }
+    })
 }

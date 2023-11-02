@@ -1,8 +1,9 @@
-<!DOCTYPE html>
 
-<html>
-    <head>
-     <title>Login</title>
+{% extends "layout.html" %}
+
+{% block title %} Login {% endblock %}
+
+{% block body %} 
      <style>
         body {
             display: block;
@@ -59,8 +60,6 @@
             color:red;
         }
      </style>
-    </head>
-    <body>
         
        <div id="wrapper"> 
          <h1>Login</h1>
@@ -74,21 +73,20 @@
         <h3>or</h3>
         </div>
 
-      <div id=" b3"><input type="text" placeholder="username"></div>
+      <div id=" b3"><input type="tel" placeholder="Mobile Nu" name="login_user"></div>
     
 
-      <div id="b4"><input type="password" placeholder="password"></div> 
+      <div id="b4"><input type="password" placeholder="password" name="login_pwd"></div> 
+      <span class="login_incorrect">Incorrect Username or password. Try again</span>
      <br>
      
     
      <div>
-     <button>login</button>
+     <button onclick="login()">login</button>
      </div>
      <br>
       <div><a id = "fp" href=" #" target=blank>Forgot password?</a></div>
      <div><p>Don't have an account?<a id = "reg" href=" #2" target=blank>Register</a></p></div>
     </form>
     </div>
-    
-    </body>
-</html>
+    {% endblock %}
