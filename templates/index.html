@@ -3,9 +3,82 @@
 {% block title %} Home {% endblock %}
 
 {% block body %} 
-    <section class="home">
+
+<!-- Home Section Starts from here -->
+    <section class="centered home">
+        <div class="centered home_left">
+            <div class="home_heading">Health Care</div>
+            <div class="btn">Login</div>
+            <div class="btn">Sign Up</div>
+        </div>
+        <div class="home_right">
+            <img src="{{url_for('static',filename='images/home.png')}}" alt="Home">
+        </div>
+    </section>
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgb(0, 11, 118)" fill-opacity="1" d="M0,96L48,117.3C96,139,192,181,288,192C384,203,480,181,576,160C672,139,768,117,864,122.7C960,128,1056,160,1152,176C1248,192,1344,192,1392,192L1440,192L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>
+
+<!-- Home Section ends from here -->
+
+
+<!-- Disease Section starts from here -->
+
+    <section class="centered disease">
+        <div class="centered disease_card">
+            <div class="d_card_img"></div>
+            <div class="centered d_card_content">
+                <div class="d_card_h">AIDS</div>
+                <div class="d_card_quote">A step against AIDS – Saves thousand lives. </div>
+                <div class="btn">Learn More</div>
+            </div>
+        </div>
+        <div class="disease_card"></div>
+        <div class="disease_card"></div>
+    </section>
+
+<!-- Home Section ends from here -->
+
+
+
+    <!-- Task section starts from here -->
+    <section class="centered task">
+
+        <div class="task_heading">Medicine Remainder <br> <span>We Take Care of You</span></div><br><br>
+
+        <div class="centered task_content">
+            <div class="centered task_left">
+                <div class="task_table_h">Add Your Medicine Here</div>
+                <form>
+                    <input type="text" placeholder="Medicine Name">
+                    <input type="time" >
+                    <div class="btn">Submit</div>
+                </form>
+            </div>
+            <div class="task_right">
+                <div class="task_table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="c1">Sno.</th>
+                                <th class="c2">Medicine Name</th>
+                                <th class="c3">Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th class="c1">1</th>
+                                <th class="c2">Paracetamol</th>
+                                <th class="c3">7:00pm</th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>        
 
     </section>
+
+    <!-- Task section ends from heresd -->
 
 {% endblock %}
 

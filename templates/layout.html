@@ -8,7 +8,7 @@
 </head>
 <body>
     
-    <header class=" centered header">
+    <header class="centered header">
         <a href="#"><img src="logo.png" alt="logo"></a>
         <div class="centered nav">
             <a class="centered" href ="#">Home</a>
@@ -26,8 +26,8 @@
 <!-- things that we want to add in body will come here -->
 {% block body %} {% endblock %}
 
-
-<script src="{{ url_for( 'static' ,filename='script.js')}}"></script>
 <script src="{{ url_for( 'static' ,filename='jquery.js')}}"></script>
+<script type="text/javascript" src="{{ url_for( 'static' ,filename='vanilla-tilt.js')}}"></script>
+<script src="{{ url_for( 'static' ,filename='script.js')}}"></script>
 </body>
 </html>

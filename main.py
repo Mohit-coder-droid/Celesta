@@ -1,9 +1,24 @@
 from flask import Flask,render_template,request,url_for,redirect
 from flask_sqlalchemy import SQLAlchemy
+import json
+
+f1=open('t.txt','r')
+# Loading config json file
+f = open('config.json')
+params = json.load(f)["params"]
+f.close()
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:@localhost/celesta'
+local_server = True
+
+# If we are working on our local server then we will use our local database
+if (local_server):
+    app.config['SQLALCHEMY_DATABASE_URI'] = params["local_uri"]
+
+else:
+    app.config['SQLALCHEMY_DATABASE_URI'] = params["prod_uri"]
+
 db = SQLAlchemy(app)
 
 # Contact us database table
