@@ -1,7 +1,7 @@
-from flask import Flask,render_template,request,url_for,redirect, url_for
+from flask import Flask,render_template,request,url_for,redirect, url_for, session, g
 from flask_sqlalchemy import SQLAlchemy
 import mysql.connector
-from flask_login import LoginManager, UserMixin, login_user, login_required
+import os
 
 # Connecting to the database
 db_config = {
@@ -59,9 +59,7 @@ def login_auth(mob_no,pwd):
 
 
 app = Flask(__name__)
-
-login_manager = LoginManager(app)
-login_manager.login_view = 'login'  # Set the login view route
+app.secret_key = os.urandom(24)
 
 local_server = True
 
@@ -82,6 +80,7 @@ class Contact(db.Model):
     mobile_nu = db.Column(db.Integer,nullable=False)
     email = db.Column(db.String(100),nullable=False)
     password = db.Column(db.String(100),nullable=False)
+
 
 @app.route("/")
 def index():
@@ -115,10 +114,32 @@ def login():
         mob_no = request.form['mob_no']
         pwd = request.form['pwd']
 
-        
+        login_data = login_auth(mob_no,pwd)
 
-        return login_auth(mob_no,pwd)
+        
+        # If we agreed it's login then store it's data
+        if login_data['result']=='True':
+            session['user_data'] = g.user_data =  login_data['data']
+            session['user'] = g.user = login_data['data'][1]
+
+        return login_data
     
     return render_template('login.html')
+
+
+@app.before_request
+def before_request():
+    g.user = None
+    g.user_data = None
+
+    if 'user' in session:
+        g.user = session['user']
+        g.user_data = session['user_data']
+
+# Making logout route
+@app.route('/logout')
+def logout():
+    session.pop('user',None)
+    return render_template('{{url_for("/")}}')
 
 app.run(debug=True)

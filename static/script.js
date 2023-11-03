@@ -49,7 +49,9 @@ function login(){
     }).done((data)=>{
         // Means that user exists
         if (data["result"]=="True"){
-            window.location.replace("/")
+            console.log(data['data'][1]);
+            // alert('aa jao');
+            window.location.replace("/");
         }
         else{
             $('.login_incorrect').css('display','block');
