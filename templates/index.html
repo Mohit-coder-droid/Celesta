@@ -65,12 +65,17 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th class="c1">1</th>
-                                <!-- <th class="c2">{{Paracetamol}}</th> -->
-                                <th class="c2">Paracetamol</th>
-                                <th class="c3">7:00pm</th>
-                            </tr>
+
+                            <!-- Using jinja template loop -->
+                            {% for item in g.usr_med %}
+                                <tr>
+                                    <th class="c1">{{item[0]}}</th>
+                                    <!-- <th class="c2">{{Paracetamol}}</th> -->
+                                    <th class="c2">{{item[1]}}</th>
+                                    <th class="c3">{{item[3]}}</th>
+                                </tr>
+                            {% endfor %}
+                            
                         </tbody>
                     </table>
                 </div>
@@ -84,23 +89,19 @@
 
     <script src="{{ url_for( 'static' ,filename='jquery.js')}}"></script>
     <script>
-        // Try displaying medicine 
-        if ('{{g.user}}'!='None'){
-            if ('{{g.usr_med}}'!='None'){
-                for (let i=0;i<parseInt('{{g.no_med}}');i++){
-                    name = '{{g.usr_med[1][1]}}'
-                    time = '{{g.usr_med[1][3]}}'
+        // Try displaying medicine
+        // function update_med(){
+        //     if ('{{g.user}}'!='None'){
+        //         if ('{{g.usr_med}}'!='None'){
+        //             c1 = `<th class="c1">${1}</th>`;
+        //             c2 = `<th class="c2">${$('.task_table_h input[name="medicine"]').val()}</th>`;
+        //             c3 = `<th class="c3">${$('.task_table_h input[name="time"]').val()}</th>`;
+        //             tr = $('<tr></tr>').append(c1,c2,c3);
 
-
-                    c1 = `<th class="c1">${i+1}</th>`;
-                    c2 = `<th class="c2">${name}</th>`;
-                    c3 = `<th class="c3">${time}</th>`;
-                    tr = $('<tr></tr>').append(c1,c2,c3);
-
-                    $('.task_table tbody').append(tr);
-                }
-            }
-        }
+        //             $('.task_table tbody').append(tr);
+        //         }
+        //     }
+        // } 
 
         // Making medicine section workable
 
