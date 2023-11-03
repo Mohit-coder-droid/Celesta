@@ -6,6 +6,7 @@
     --blue:#216efd;
     --purple:rgb(0, 11, 118);
     --txt:#fff;
+    --incorrect: rgb(217,48,37);
 }
 
 *{
@@ -280,6 +281,16 @@ input[type="time"]::-webkit-calendar-picker-indicator{
     transform: translate(66px, 22px);
 }
 
+.task_table_logged{
+    color: var(--incorrect);
+    font-size: 15px;
+}
+
+.task_table_logged a{
+    text-decoration: none;
+    color: aliceblue;
+}
+
 .task_right table{
     border: none;
     height: 100%;
@@ -322,7 +333,7 @@ input[type="time"]::-webkit-calendar-picker-indicator{
 
 /* Styling of login page starts from here */
 .login_incorrect{
-    color: rgb(217,48,37);
+    color: var(--incorrect);
     font-size: 12px;
     display: none;
 }

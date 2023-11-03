@@ -18,22 +18,26 @@ params={
     "prod_uri":"mysql://root:@localhost/celesta"
 }
 
-def login_auth(mob_no,pwd):
-    '''For making login possible'''
-
-
+# Connecting with database and bringing back the data
+def data_conn(query):
     conn = mysql.connector.connect(**db_config)
     cursor = conn.cursor()
 
-    query = "SELECT * from contact WHERE firstName='second'"
     cursor.execute(query)
     data = cursor.fetchall()
+
+    cursor.close()
+    conn.close()
+    return data
+
+def login_auth(mob_no,pwd):
+    # Connecting with database
+    '''For making login possible'''
 
     # Now I need to check whether this user exists or not, and if it exists , then give it's data
     try:
         query = f"SELECT * from contact where mobile_nu='{mob_no}'"
-        cursor.execute(query)
-        data = cursor.fetchall()
+        data = data_conn(query)
 
         if (data[0][5]==pwd):
             login_data = {
@@ -51,9 +55,6 @@ def login_auth(mob_no,pwd):
         login_data = {
             'result':'False'
         }
-    
-    cursor.close()
-    conn.close()
 
     return login_data
 
@@ -81,6 +82,11 @@ class Contact(db.Model):
     email = db.Column(db.String(100),nullable=False)
     password = db.Column(db.String(100),nullable=False)
 
+class Medicine(db.Model):
+    sno = db.Column(db.Integer,primary_key=True)
+    medicine = db.Column(db.String(100),nullable=False)
+    usrno = db.Column(db.Integer,nullable=False)
+    time = db.Column(db.String(20),nullable=False)
 
 @app.route("/")
 def index():
@@ -122,24 +128,47 @@ def login():
             session['user_data'] = g.user_data =  login_data['data']
             session['user'] = g.user = login_data['data'][1]
 
+            # Loading medicines
+            query = f"SELECT * from medicine WHERE  usrno='{g.user_data[0]}'"
+            data = data_conn(query)
+            session['usr_med'] = g.usr_med = data
+
         return login_data
     
     return render_template('login.html')
 
+@app.route('/medicine', methods=['GET','POST'])
+def medicine():
+    if (request.method=='POST'):
+        medicine_ = request.form['medicine']
+        time_ = request.form['time']
+        usrno_ = request.form['usrno']
+
+        entry = Medicine(medicine=medicine_,time=time_,usrno=usrno_)
+
+        db.session.add(entry)
+        db.session.commit()
+
+        return 'Successful'
 
 @app.before_request
 def before_request():
-    g.user = None
-    g.user_data = None
+    g.user = 'None'
+    g.user_data = 'None'
+    g.usr_med = 'None'
+    g.no_med = 'None'
 
     if 'user' in session:
         g.user = session['user']
         g.user_data = session['user_data']
+        g.usr_med = session['usr_med']
+        g.no_med = len(g.usr_med)
 
 # Making logout route
 @app.route('/logout')
 def logout():
     session.pop('user',None)
     return render_template('{{url_for("/")}}')
+
 
 app.run(debug=True)
