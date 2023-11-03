@@ -170,5 +170,9 @@ def logout():
     session.pop('user',None)
     return render_template('{{url_for("/")}}')
 
+@app.route('/article')
+def article():
+    return render_template('article.html')
+
 
 app.run(debug=True)

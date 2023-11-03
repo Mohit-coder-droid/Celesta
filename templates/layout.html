@@ -9,16 +9,25 @@
 <body>
     
     <header class="centered header">
-        <a href="#"><img src="logo.png" alt="logo"></a>
+        <a href="#"><img src="{{url_for('static',filename='images/logo.png')}}" alt="logo">Health Care</a>
+
+        <div class="hamburger" onclick="nav_active()">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+
         <div class="centered nav">
             <a class="centered" href ="/">Home</a>
             <a class="centered" href ="/about">About Us</a>
             <a class="centered" href ="/contact">Contact Us</a>
             <a class="centered" href ="/login">Login</a>
         </div>
-        <div class="centered ham">
+        <!-- <div class="centered ham">
             <div class="line"></div>
-        </div>
+        </div> -->
+
+        
     </header>
 
 

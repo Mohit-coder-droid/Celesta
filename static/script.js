@@ -1,3 +1,9 @@
+// Making navbar work
+function nav_active(){
+    $('.hamburger').toggleClass('active');   
+    $('.nav').toggleClass('active');   
+}
+
 // Styling navbar
 $(window).scroll(()=>{
     if($(window).scrollTop()>100){
@@ -30,7 +36,7 @@ function contact_data(){
         type: 'POST', 
         data: contact_data_
     }).done((data)=>{
-        console.log(data);
+        pass
     })
 }
 
@@ -57,4 +63,8 @@ function login(){
             $('.login_incorrect').css('display','block');
         }
     })
+}
+
+function article(){
+    window.location.replace('/article');
 }
